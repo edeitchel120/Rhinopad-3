@@ -1,1 +1,86 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+
+/* Layer indices */
+#define BASE      0
+#define NUMPAD    1
+#define BT_LAYER  2
+
+/ {
+    behaviors {
+        /* Encoder: click toggles NUMPAD; rotate = scroll left/right */
+        enc_toggle_layers: behavior_key_press {
+            compatible = "zmk,behavior-key-press";
+            label = "ENC_TGL";
+            #binding-cells = <0>;
+            bindings = <&tog NUMPAD>;
+        };
+
+        enc_scroll: behavior_sensor_rotate_kp {
+            compatible = "zmk,behavior-sensor-rotate-var";
+            label = "ENC_SCROLL";
+            #sensor-binding-cells = <2>;
+            bindings = <&kp>, <&kp>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        /***************
+         * LAYER 0 — BASE
+         *
+         * Top:    =   9   8   7   Del
+         * Mid:        6   5   4
+         * Bottom: .   3   2   1   0
+         ***************/
+        base_layer {
+            label = "BASE";
+
+            bindings = <
+                &kp EQUAL  &kp N9  &kp N8  &kp N7  &kp DEL
+                            &kp N6  &kp N5  &kp N4
+                &kp DOT    &kp N3  &kp N2  &kp N1  &kp N0
+            >;
+
+            sensor-bindings = <&enc_scroll PGDN PGUP>;
+        };
+
+        /***************
+         * LAYER 1 — NUMPAD
+         ***************/
+        numpad_layer {
+            label = "NUMPAD";
+
+            bindings = <
+                &kp N7   &kp N8   &kp N9   &kp KP_SLASH  &kp BSPC
+                           &kp N4   &kp N5   &kp N6
+                &kp DOT &kp N1   &kp N2   &kp N3        &kp KP_ENTER
+            >;
+
+            sensor-bindings = <&enc_scroll PGDN PGUP>;
+        };
+
+        /***************
+         * LAYER 2 — BLUETOOTH / RESET
+         ***************/
+        bt_layer {
+            label = "BT";
+
+            bindings = <
+                &bt BT_CLR   &none       &none       &none       &bootloader
+                              &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2
+                &none        &none       &none       &none       &tog BT_LAYER
+            >;
+
+            sensor-bindings = <&enc_scroll PGDN PGUP>;
+        };
+    };
+
+    /* Map encoder click to toggle layers */
+    &encoder_click {
+        bindings = <&enc_toggle_layers>;
+    }
+};
 
