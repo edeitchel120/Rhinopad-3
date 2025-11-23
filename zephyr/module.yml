@@ -1,8 +1,9 @@
-name: rhinopad-config
+name: rhinopad-3-config
 
 build:
-  cmake:
-    # Tell Zephyr/ZMK where to find boards and shields in THIS repo
-    - board_root: boards
-      shield_root: boards
-      kconfig_root: config
+  cmake: .
+  kconfig: config
+  settings:
+    board_root: boards
+    shield_root: boards
+    dts_root: boards
