@@ -1,1 +1,6 @@
+# Kconfig for Rhinopad-3 ZMK config
+
+menu "Rhinopad-3 options"
+
+endmenu
 
