@@ -1,8 +1,9 @@
-name: rhinopad-config
+name: rhinopad_config
 
 build:
   cmake: .
   kconfig: Kconfig
   settings:
     board_root: boards
-    dts_root: boards
+    shield_root: boards
+    kconfig_root: config
