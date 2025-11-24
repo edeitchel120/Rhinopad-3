@@ -1,8 +1,5 @@
-name: rhinopad-3
-
 build:
-  cmake: .
-  kconfig: Kconfig
+  kconfig: zephyr/Kconfig
   settings:
-    board_root: boards
-    dts_root: boards
+    board_root: .
+    shield_root: boards/shields
