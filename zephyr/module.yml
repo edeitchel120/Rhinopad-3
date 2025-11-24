@@ -1,9 +1,7 @@
 name: Rhinopad-3
 
 build:
-  cmake: zephyr/CMakeLists.txt
-  kconfig: zephyr/kconfig
+  cmake: zephyr
+  kconfig: zephyr/Kconfig
   settings:
-    board_root: boards
-    shield_root: boards/shields
-    kconfig_root: config
+    board_root: .
