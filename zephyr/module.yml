@@ -1,9 +1,10 @@
-name: Rhinopad-3
+name: zmk-config
 
 build:
   cmake: zephyr
   kconfig: zephyr/Kconfig
   settings:
+    dts_root: .
     board_root: .
-    shield_root: boards
-    dts_root: boards
+    shield_root: .
+    kconfig_root: .
