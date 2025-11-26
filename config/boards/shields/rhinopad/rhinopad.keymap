@@ -1,61 +1,13 @@
-#include <behaviors.dtsi>
-#include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/bt.h>
-
-/* Layer indices */
-#define L_BASE      0
-#define L_NUMPAD    1
-#define L_BT        2
-
 / {
     keymap {
         compatible = "zmk,keymap";
 
-        /***************
-         * LAYER 0 — BASE
-         *
-         *  Top:    =    9    8    7    DEL
-         *  Middle:      6    5    4
-         *  Bottom: .    3    2    1    0
-         *
-         *  (No encoder, no macros yet)
-         ***************/
-        base_layer {
-            label = "BASE";
-
+        default_layer {
             bindings = <
-                &kp EQUAL   &kp N9     &kp N8     &kp N7     &kp DEL
-                              &kp N6     &kp N5     &kp N4
-                &kp DOT     &kp N3     &kp N2     &kp N1     &kp N0
-            >;
-        };
-
-        /***************
-         * LAYER 1 — NUMPAD (simple alternative pad)
-         ***************/
-        numpad_layer {
-            label = "NUM";
-
-            bindings = <
-                &kp KP_EQUAL  &kp KP_9     &kp KP_8     &kp KP_7     &kp KP_PLUS
-                                 &kp KP_6     &kp KP_5     &kp KP_4
-                &kp KP_DOT    &kp KP_3     &kp KP_2     &kp KP_1     &kp KP_0
-            >;
-        };
-
-        /***************
-         * LAYER 2 — BLUETOOTH / RESET
-         *
-         * You’ll get BT_CLEAR and BT_SEL 0/1/2 + bootloader.
-         * (No layer keys here yet, just functionality)
-         ***************/
-        bt_layer {
-            label = "BT";
-
-            bindings = <
-                &bt BT_CLR    &none        &none        &none        &bootloader
-                                &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2
-                &none         &none        &none        &none        &none
+                &kp ESC   &kp 1    &kp 2    &kp 3
+                &kp TAB   &kp Q    &kp W    &kp E
+                &kp LSHFT &kp A    &kp S    &kp D
+                &kp LCTRL &kp Z    &kp X    &kp C
             >;
         };
     };
