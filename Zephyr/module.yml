@@ -1,1 +1,11 @@
+name: Rhinopad-3
 
+build:
+  cmake: zephyr
+  kconfig: zephyr/Kconfig
+
+  settings:
+    # this repo is treated as a Zephyr/ZMK module that provides boards/shields
+    board_root: boards
+    dts_root: boards
+    shield_root: boards
