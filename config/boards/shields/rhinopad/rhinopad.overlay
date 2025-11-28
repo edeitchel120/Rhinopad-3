@@ -1,5 +1,15 @@
-#include "rhinopad.dtsi"
+/ {
+    encoder0: encoder0 {
+        compatible = "alps,ec11";
+        status = "okay";
+        label = "ENCODER_LEFT";
 
-&encoder {
-	status = "okay";
+        a-gpios = <&pro_micro 2 GPIO_ACTIVE_HIGH>;
+        b-gpios = <&pro_micro 3 GPIO_ACTIVE_HIGH>;
+        steps = <4>;
+    };
+};
+
+&encoder0 {
+    encoder-bindings = <&enc_toggle_layer>, <&kp SCROLL_UP>, <&kp SCROLL_DOWN>;
 };
