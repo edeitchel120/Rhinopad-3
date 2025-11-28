@@ -2,13 +2,28 @@
     keymap {
         compatible = "zmk,keymap";
 
-        default_layer {
+        layer_0 {
             bindings = <
-                &kp ESC   &kp 1    &kp 2    &kp 3
-                &kp TAB   &kp Q    &kp W    &kp E
-                &kp LSHFT &kp A    &kp S    &kp D
-                &kp LCTRL &kp Z    &kp X    &kp C
+                &kp EQUAL &kp N9     &kp N8      &kp N7      &kp DELETE
+                &kp N6     &kp N5    &kp N4
+                &kp DOT    &kp N3    &kp N2      &kp N1      &kp N0
             >;
+        };
+
+        layer_1 {
+            bindings = <
+                &trans  &trans  &trans  &trans  &bt BT_CLR
+                &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans
+            >;
+        };
+    };
+
+    behaviors {
+        enc_toggle_layer: enc_toggle_layer {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <1>;
+            bindings = <&mo 1>;
         };
     };
 };
