@@ -1,16 +1,5 @@
-/ {
-	chosen {
-		zmk,kscan = &kscan0;
-		zmk,keyboard = &keypad0;
-	};
-};
+#include "rhinopad.dtsi"
 
-&kscan0 {
-	compatible = "zmk,kscan-gpio-matrix";
-	row-gpios = <>;
-	col-gpios = <>;
-};
-
-&keypad0 {
-	compatible = "zmk,keyboard";
+&encoder {
+	status = "okay";
 };
