@@ -1,15 +1,16 @@
 / {
-    encoder0: encoder0 {
-        compatible = "alps,ec11";
-        status = "okay";
-        label = "ENCODER_LEFT";
-
-        a-gpios = <&pro_micro 2 GPIO_ACTIVE_HIGH>;
-        b-gpios = <&pro_micro 3 GPIO_ACTIVE_HIGH>;
-        steps = <4>;
-    };
+	chosen {
+		zmk,kscan = &kscan0;
+		zmk,keyboard = &keypad0;
+	};
 };
 
-&encoder0 {
-    encoder-bindings = <&enc_toggle_layer>, <&kp SCROLL_UP>, <&kp SCROLL_DOWN>;
+&kscan0 {
+	compatible = "zmk,kscan-gpio-matrix";
+	row-gpios = <>;
+	col-gpios = <>;
+};
+
+&keypad0 {
+	compatible = "zmk,keyboard";
 };
