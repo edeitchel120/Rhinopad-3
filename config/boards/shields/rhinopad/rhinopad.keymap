@@ -2,7 +2,7 @@
     keymap {
         compatible = "zmk,keymap";
 
-        default_layer {
+        default_layer: default_layer {
             label = "DEF";
             bindings = <
                 &mo 1     &kp N9   &kp N8   &kp N7   &kp BSPC
@@ -11,7 +11,7 @@
             >;
         };
 
-        layer_bt {
+        layer_bt: layer_bt {
             label = "BT";
             bindings = <
                 &trans    &trans   &trans   &trans   &bt BT_CLR
