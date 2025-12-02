@@ -1,13 +1,13 @@
-#include "rhinopad.dtsi"
-
 &encoder {
-	status = "okay";
+    status = "okay";
 };
-/ {
+
+&{
     chosen {
         zephyr,display = &rhinopad_oled;
     };
 };
+
 &i2c0 {
     status = "okay";
 
