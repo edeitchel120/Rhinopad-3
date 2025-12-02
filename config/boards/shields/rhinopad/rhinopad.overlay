@@ -24,13 +24,9 @@
         page-offset = <0>;
         display-offset = <0>;
         multiplex-ratio = <63>;
-        precharge-period = <0x22>;
+        prechargep = <0x22>;
 
         com-invdir;
         seg-remap;
-
-        /* If your PCB has a reset pin for the OLED:
-         * reset-gpios = <&gpio0 15 GPIO_ACTIVE_LOW>;
-         */
     };
 };
