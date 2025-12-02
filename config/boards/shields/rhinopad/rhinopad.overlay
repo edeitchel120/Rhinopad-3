@@ -1,28 +1,31 @@
 #include "rhinopad.dtsi"
 
 / {
-    chosen {
-        zephyr,display = &rhinopad_oled;
-    };
+	chosen {
+		zephyr,display = &rhinopad_oled;
+	};
 };
 
 &i2c0 {
-    status = "okay";
+	status = "okay";
 
-    rhinopad_oled: ssd1306@3c {
-        compatible = "solomon,ssd1306fb-i2c";
-        reg = <0x3c>;
+	rhinopad_oled: ssd1306@3c {
+		compatible = "solomon,ssd1306fb-i2c";
+		reg = <0x3c>;
+		label = "RHINOPAD_OLED";
 
-        width = <128>;
-        height = <64>;
+		/* These two MUST exist for LVGL’s DT_PROP() macros */
+		width = <128>;
+		height = <64>;
 
-        segment-offset  = <0>;
-        page-offset     = <0>;
-        display-offset  = <0>;
-        multiplex-ratio = <63>;
-        prechargep      = <0x22>;
+		/* Standard SSD1306 panel params */
+		segment-offset = <0>;
+		page-offset = <0>;
+		display-offset = <0>;
+		multiplex-ratio = <63>;
+		prechargep = <0x22>;
 
-        com-invdir;
-        segment-remap;
-    };
+		com-invdir;
+		segment-remap;
+	};
 };
