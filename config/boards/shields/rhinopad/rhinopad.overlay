@@ -13,6 +13,8 @@
 		compatible = "solomon,ssd1306fb-i2c";
 		reg = <0x3c>;
 		label = "RHINOPAD_OLED";
+        width = <128>;   /* or 64 etc, match your panel */
+        height = <64>;   /* or 32 etc, match your panel */
 
 		/* These two MUST exist for LVGL’s DT_PROP() macros */
 		width = <128>;
