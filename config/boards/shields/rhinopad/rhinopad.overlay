@@ -1,36 +1,36 @@
-#include "rhinopad.dtsi"
-
-/ {
-	chosen {
-		zephyr,display = &rhinopad_oled;
-	};
-};
-
-&i2c0 {
-    status = "okay";
-
-    oled: ssd1306@3c {
-        compatible = "solomon,ssd1306fb-i2c";
-        reg = <0x3c>;
-        label = "SSD1306";
-
-        width = <128>;      /* REQUIRED */
-        height = <32>;      /* REQUIRED */
-
-        /* extra SSD1306 props as appropriate for your screen */
-        segment-offset = <0>;
-        page-offset = <0>;
-        display-offset = <0>;
-        multiplex-ratio = <31>;
-        precharge-period = <2>;
-        vcomh-deselect-level = <0x34>;
-        contrast = <127>;
-        /* ... */
-    };
-};
-
 / {
     chosen {
+        /* Tell ZMK/Zephyr which display node to use */
+        zmk,display = &oled;
         zephyr,display = &oled;
     };
 };
+
+/* Attach an SSD1306 OLED to the existing I2C1 bus on nice_nano_v2 */
+&i2c1 {
+    status = "okay";
+
+    oled: oled@3c {
+        compatible = "solomon,ssd1306fb";
+        reg = <0x3c>;
+        label = "Rhinopad_OLED";
+
+        width = <128>;
+        height = <32>;
+
+        /* Geometry / orientation */
+        page-offset = <0>;
+        segment-offset = <0>;
+        display-offset = <0>;
+
+        segment-remap;
+        com-invdir;
+        com-seq;
+
+        multiplex-ratio = <31>;
+        precharge-period = <2 2>;
+
+        /* If your PCB uses a reset pin, uncomment and fix the GPIO below */
+        /* reset-gpios = <&gpio0 15 GPIO_ACTIVE_LOW>; */
+    };
+}
