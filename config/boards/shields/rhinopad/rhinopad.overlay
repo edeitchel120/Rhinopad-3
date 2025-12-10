@@ -1,16 +1,16 @@
 / {
     chosen {
-        /* Tell ZMK/Zephyr which display node to use */
-        zmk,display = &oled;
-        zephyr,display = &oled;
+        /* Use the Rhinopad OLED as the primary display for ZMK/Zephyr */
+        zmk,display = &rhinopad_oled;
+        zephyr,display = &rhinopad_oled;
     };
 };
 
-/* Attach an SSD1306 OLED to the existing I2C1 bus on nice_nano_v2 */
+/* Attach an SSD1306 OLED to the nice!nano v2 I2C1 bus */
 &i2c1 {
     status = "okay";
 
-    oled: oled@3c {
+    rhinopad_oled: oled@3c {
         compatible = "solomon,ssd1306fb";
         reg = <0x3c>;
         label = "Rhinopad_OLED";
@@ -30,7 +30,7 @@
         multiplex-ratio = <31>;
         precharge-period = <2 2>;
 
-        /* If your PCB uses a reset pin, uncomment and fix the GPIO below */
+        /* If your PCB uses a reset pin, uncomment and adjust this line */
         /* reset-gpios = <&gpio0 15 GPIO_ACTIVE_LOW>; */
     };
-}
+};
