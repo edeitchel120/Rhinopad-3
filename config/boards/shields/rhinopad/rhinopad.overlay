@@ -1,25 +1,13 @@
-# ===================================================================
-# File: config/boards/shields/rhinopad/rhinopad.overlay
-# Minimal I2C + OLED + display selection
-# ===================================================================
-/dts-v1/;
-/plugin/;
-
-#include <zephyr/dt-bindings/gpio/gpio.h>
-#include <zephyr/dt-bindings/pinctrl/nrf-pinctrl.h>
-#include <zephyr/dt-bindings/i2c/i2c.h>
-
-/ {
+ {
     chosen {
         zmk,display = &rhinopad_oled;
         zephyr,display = &rhinopad_oled;
     };
 };
 
-/* -------------------------------------------------------------------
- * Pin control configuration for I2C1 on nRF52840 (nice!nano v2)
+/* Pin control configuration for I2C1 on nRF52840 (nice!nano v2)
  * NOTE: Adjust pins (0,24 / 0,25) if your PCB uses different ones.
- * ------------------------------------------------------------------*/
+ */
 &pinctrl {
     i2c1_default: i2c1_default {
         group1 {
@@ -30,12 +18,9 @@
     };
 };
 
-/* -------------------------------------------------------------------
- * I2C1 controller + SSD1306 128x32 OLED at 0x3C
- * ------------------------------------------------------------------*/
+/* I2C1 controller + SSD1306 128x32 OLED at 0x3C */
 &i2c1 {
     status = "okay";
-    compatible = "nordic,nrf-twim";
 
     /* REQUIRED by nordic,nrf-twim binding in Zephyr 3.5 */
     pinctrl-0 = <&i2c1_default>;
