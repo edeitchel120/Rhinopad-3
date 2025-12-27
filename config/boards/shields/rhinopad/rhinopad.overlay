@@ -1,32 +1,25 @@
- {
+	/ {
     chosen {
         zmk,display = &rhinopad_oled;
         zephyr,display = &rhinopad_oled;
     };
 };
 
-/* Pin control configuration for I2C1 on nRF52840 (nice!nano v2)
- * NOTE: Adjust pins (0,24 / 0,25) if your PCB uses different ones.
+/* I2C1 controller + SSD1306 128x32 OLED at 0x3C
+ * NOTE: Adjust sda-pin / scl-pin if your PCB uses different pins.
  */
-&pinctrl {
-    i2c1_default: i2c1_default {
-        group1 {
-            /* SDA = P0.24, SCL = P0.25 (example wiring) */
-            psels = <NRF_PSEL(TWIM_SDA, 0, 24)>,
-                    <NRF_PSEL(TWIM_SCL, 0, 25)>;
-        };
-    };
-};
-
-/* I2C1 controller + SSD1306 128x32 OLED at 0x3C */
 &i2c1 {
     status = "okay";
 
-    /* REQUIRED by nordic,nrf-twim binding in Zephyr 3.5 */
-    pinctrl-0 = <&i2c1_default>;
-    pinctrl-names = "default";
+    /* Use the older nrf-twi binding so we do NOT need pinctrl-0 */
+    compatible = "nordic,nrf-twi";
 
-    clock-frequency = <I2C_BITRATE_STANDARD>;
+    /* Example wiring: SDA = P0.24, SCL = P0.25 */
+    sda-pin = <24>;
+    scl-pin = <25>;
+
+    /* 100 kHz I2C */
+    clock-frequency = <100000>;
 
     rhinopad_oled: oled@3c {
         compatible = "solomon,ssd1306fb";
@@ -48,7 +41,7 @@
         multiplex-ratio = <31>;
         precharge-period = <2 2>;
 
-        /* Uncomment and set if your OLED uses a reset pin:
+        /* Uncomment and adjust if your OLED uses a reset pin:
          * reset-gpios = <&gpio0 15 GPIO_ACTIVE_LOW>;
          */
     };
