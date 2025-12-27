@@ -1,25 +1,45 @@
-	/ {
+/ {
     chosen {
         zmk,display = &rhinopad_oled;
         zephyr,display = &rhinopad_oled;
     };
 };
 
-/* I2C1 controller + SSD1306 128x32 OLED at 0x3C
- * NOTE: Adjust sda-pin / scl-pin if your PCB uses different pins.
+/*
+ * Fix for Zephyr 3.5 I2C binding:
+ * - The failing node is /soc/i2c@40004000, which is I2C0/TWI0.
+ * - We add pinctrl groups for I2C0 and hook them to that node.
+ *
+ * NOTE: Adjust pins (0,24 / 0,25) if your PCB uses different ones.
  */
-&i2c1 {
+&pinctrl {
+    i2c0_default: i2c0_default {
+        group1 {
+            /* Example wiring: SDA = P0.24, SCL = P0.25 */
+            psels = <NRF_PSEL(TWIM_SDA, 0, 24)>,
+                    <NRF_PSEL(TWIM_SCL, 0, 25)>;
+        };
+    };
+
+    i2c0_sleep: i2c0_sleep {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SDA, 0, 24)>,
+                    <NRF_PSEL(TWIM_SCL, 0, 25)>;
+            low-power-enable;
+        };
+    };
+};
+
+/* Attach SSD1306 128x32 OLED at 0x3C to I2C0 (0x40004000) */
+&i2c0 {
     status = "okay";
 
-    /* Use the older nrf-twi binding so we do NOT need pinctrl-0 */
-    compatible = "nordic,nrf-twi";
+    /* REQUIRED by nordic,nrf-twi binding in Zephyr 3.5 */
+    pinctrl-0 = <&i2c0_default>;
+    pinctrl-1 = <&i2c0_sleep>;
+    pinctrl-names = "default", "sleep";
 
-    /* Example wiring: SDA = P0.24, SCL = P0.25 */
-    sda-pin = <24>;
-    scl-pin = <25>;
-
-    /* 100 kHz I2C */
-    clock-frequency = <100000>;
+    clock-frequency = <I2C_BITRATE_STANDARD>;
 
     rhinopad_oled: oled@3c {
         compatible = "solomon,ssd1306fb";
